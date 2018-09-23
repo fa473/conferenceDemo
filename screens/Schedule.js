@@ -1,14 +1,76 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  SectionList
+} from 'react-native'
 import ToggleButton from '../components/ToggleButton'
+
+const thursdaySections = [
+  {
+    id: '8:30 AM',
+    data: [{ id: 0, title: 'Registration, breakfast' }]
+  },
+  {
+    id: '10 AM',
+    data: [
+      {
+        id: 0,
+        title: 'Conference Keynote',
+        speaker: 'Lucy Vatne'
+      }
+    ]
+  }
+]
+
+const fridaySections = [
+  {
+    id: '10:30 AM',
+    data: [{ id: 0, title: 'More breakfast' }]
+  },
+  {
+    id: '12:00 PM',
+    data: [
+      {
+        id: 0,
+        title: 'More Keynote',
+        speaker: 'Lucy Vatne'
+      }
+    ]
+  }
+]
+
+const extractKey = ({ id }) => id
 
 export default class Schedule extends React.Component {
   state = {
     selectedDay: 'THURSDAY'
   }
+
   handlePressItem = (item) => {
     this.setState({ selectedDay: item })
   }
+
+  renderItem = ({ item }) => {
+    return (
+      <View style={styles.row}>
+        <Text style={styles.rowTitle}>{item.title}</Text>
+        <Text style={styles.rowSpeaker}>{item.speaker}</Text>
+      </View>
+    )
+  }
+
+  renderSectionHeader = ({ section }) => {
+    return (
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionHeaderText}>{section.id}</Text>
+      </View>
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -24,6 +86,17 @@ export default class Schedule extends React.Component {
             onPressItem={this.handlePressItem}
           />
         </ImageBackground>
+        <SectionList
+          style={styles.list}
+          sections={
+            this.state.selectedDay === 'THURSDAY'
+              ? thursdaySections
+              : fridaySections
+          }
+          renderItem={this.renderItem}
+          renderSectionHeader={this.renderSectionHeader}
+          keyExtractor={extractKey}
+        />
       </View>
     )
   }
@@ -35,7 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   image: {
-    height: 200,
+    paddingVertical: 50,
+    height: null,
     width: null,
     justifyContent: 'center',
     alignItems: 'center'
@@ -47,6 +121,28 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 24
+    fontSize: 24,
+    marginBottom: 10
+  },
+  list: {
+    flex: 1
+  },
+  sectionHeader: {
+    backgroundColor: 'whitesmoke',
+    padding: 20
+  },
+  sectionHeaderText: {
+    fontSize: 13
+  },
+  row: {
+    backgroundColor: 'white',
+    padding: 20
+  },
+  rowTitle: {
+    fontSize: 13,
+    fontWeight: '500'
+  },
+  rowSpeaker: {
+    fontSize: 13
   }
 })

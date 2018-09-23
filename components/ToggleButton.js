@@ -2,10 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 export default class ToggleButton extends React.Component {
-  renderItem = (item, index, list) => {
+  renderItem = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={this.props.onPressItem.bind(this, item)}
+        onPress={() => this.props.onPressItem(item)}
         style={[
           styles.button,
           {
@@ -20,8 +20,11 @@ export default class ToggleButton extends React.Component {
     )
   }
   render() {
-    const { items, value } = this.props
-    return <View style={styles.container}>{items.map(this.renderItem)}</View>
+    return (
+      <View style={styles.container}>
+        {this.props.items.map(this.renderItem)}
+      </View>
+    )
   }
 }
 
