@@ -1,7 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import PropTypes from 'prop-types'
 
 export default class ToggleButton extends React.Component {
+  static propTypes = {
+    onPressItem: PropTypes.func,
+    value: PropTypes.string,
+    items: PropTypes.array
+  }
+
   renderItem = (item, index) => {
     return (
       <TouchableOpacity
