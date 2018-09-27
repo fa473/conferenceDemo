@@ -5,7 +5,8 @@ import {
   View,
   Image,
   ImageBackground,
-  SectionList
+  SectionList,
+  TouchableOpacity
 } from 'react-native'
 import ToggleButton from '../components/ToggleButton'
 
@@ -54,12 +55,19 @@ export default class Schedule extends React.Component {
     this.setState({ selectedDay: item })
   }
 
+  handlePressRow = (item) => {
+    this.props.navigation.navigate('EventDetails', {})
+  }
+
   renderItem = ({ item }) => {
     return (
-      <View style={styles.row}>
+      <TouchableOpacity
+        style={styles.row}
+        onPress={() => this.handlePressRow(item)}
+      >
         <Text style={styles.rowTitle}>{item.title}</Text>
         <Text style={styles.rowSpeaker}>{item.speaker}</Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 
