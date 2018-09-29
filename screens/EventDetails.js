@@ -1,14 +1,18 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
+import formatCustomDateString from '../utils/formatCustomDateString'
 
 export default class EventDetails extends React.Component {
   render() {
+    let { item } = this.props.navigation.state.params
     return (
       <View style={styles.container}>
         <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Conference Keynote</Text>
-          <Text style={styles.subtitle}>Thursday, May 18</Text>
-          <Text style={styles.details}>Conference description goes here!</Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.subtitle}>
+            {formatCustomDateString(item.startDate)}
+          </Text>
+          <Text style={styles.details}>{item.description}</Text>
         </View>
         <View style={styles.speakerContainer}>
           <Image source={{ uri: IMAGE_URI }} style={styles.image} />

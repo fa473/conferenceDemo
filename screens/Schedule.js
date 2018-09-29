@@ -9,40 +9,12 @@ import {
   TouchableOpacity
 } from 'react-native'
 import ToggleButton from '../components/ToggleButton'
+import data from '../data'
+import formatCustomDateString from '../utils/formatCustomDateString'
 
-const thursdaySections = [
-  {
-    id: '8:30 AM',
-    data: [{ id: 0, title: 'Registration, breakfast' }]
-  },
-  {
-    id: '10 AM',
-    data: [
-      {
-        id: 0,
-        title: 'Conference Keynote',
-        speaker: 'Lucy Vatne'
-      }
-    ]
-  }
-]
+const thursdaySections = data.Thursday
 
-const fridaySections = [
-  {
-    id: '10:30 AM',
-    data: [{ id: 0, title: 'More breakfast' }]
-  },
-  {
-    id: '12:00 PM',
-    data: [
-      {
-        id: 0,
-        title: 'More Keynote',
-        speaker: 'Lucy Vatne'
-      }
-    ]
-  }
-]
+const fridaySections = data.Friday
 
 const extractKey = ({ id }) => id
 
@@ -56,7 +28,7 @@ export default class Schedule extends React.Component {
   }
 
   handlePressRow = (item) => {
-    this.props.navigation.navigate('EventDetails', {})
+    this.props.navigation.navigate('EventDetails', { item })
   }
 
   renderItem = ({ item }) => {
@@ -74,7 +46,9 @@ export default class Schedule extends React.Component {
   renderSectionHeader = ({ section }) => {
     return (
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionHeaderText}>{section.id}</Text>
+        <Text style={styles.sectionHeaderText}>
+          {formatCustomDateString(section.key)}
+        </Text>
       </View>
     )
   }
