@@ -3,7 +3,6 @@ import { Constants } from 'expo'
 import {
   ScrollView,
   View,
-  Text,
   StyleSheet,
   StatusBar,
   TextInput
@@ -11,12 +10,16 @@ import {
 import GrowingTextInput from '../components/GrowingTextInput'
 
 export default class Feedback extends Component {
+  static navigationOptions = {
+    title: 'Feedback'
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView
           keyboardDismissMode="on-drag"
-          contentContainerStyle={{ paddingTop: 80 + 30 }}
+          contentContainerStyle={{ paddingTop: 30 }}
           style={{ flex: 1, backgroundColor: '#F8F8F9' }}
         >
           <View style={[styles.row, styles.firstRow]}>
@@ -68,9 +71,6 @@ export default class Feedback extends Component {
           </View>
         </ScrollView>
 
-        <View style={styles.navbar}>
-          <Text style={styles.title}>Feedback</Text>
-        </View>
         <StatusBar barStyle="light-content" />
       </View>
     )
@@ -80,17 +80,6 @@ export default class Feedback extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  navbar: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 80,
-    backgroundColor: '#050B7A',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight
   },
   title: {
     fontSize: 18,

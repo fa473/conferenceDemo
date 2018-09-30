@@ -17,7 +17,7 @@ export default class ToggleButton extends React.Component {
           styles.button,
           {
             marginLeft: index !== 0 ? 10 : 0,
-            backgroundColor: item === this.props.value ? 'blue' : 'red'
+            backgroundColor: item === this.props.value ? 'red' : 'blue'
           }
         ]}
         key={item}
