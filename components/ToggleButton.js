@@ -17,7 +17,8 @@ export default class ToggleButton extends React.Component {
           styles.button,
           {
             marginLeft: index !== 0 ? 10 : 0,
-            backgroundColor: item === this.props.value ? 'red' : 'blue'
+            backgroundColor:
+              item === this.props.value ? 'tomato' : 'rgba(52, 52, 52, 0.3)'
           }
         ]}
         key={item}
@@ -40,7 +41,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   button: {
-    backgroundColor: 'purple',
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
