@@ -7,13 +7,16 @@ import {
   TextInput,
   Button,
   Animated,
-  Text
+  Text,
+  AsyncStorage
 } from 'react-native'
 import GrowingTextInput from '../components/GrowingTextInput'
 import Modal from 'react-native-root-modal'
 import Swipeable from '../components/Swipeable'
 
 const calculateOpacity = (x) => Math.max(0, 100 - Math.abs(x)) / 100
+
+const NAME_FIELD_KEY = 'NAME_FIELD_KEY'
 
 export default class Feedback extends Component {
   static navigationOptions = {
@@ -22,7 +25,17 @@ export default class Feedback extends Component {
 
   state = {
     modalVisible: false,
-    modalOpacity: new Animated.Value(0)
+    modalOpacity: new Animated.Value(0),
+    name: ''
+  }
+
+  componentWillMount = async () => {
+    try {
+      const name = await AsyncStorage.getItem(NAME_FIELD_KEY)
+      if (name !== null) {
+        this.setState({ name })
+      }
+    } catch (error) {}
   }
 
   render() {
@@ -98,11 +111,18 @@ export default class Feedback extends Component {
           <View style={[styles.row, styles.firstRow]}>
             <TextInput
               style={styles.textInput}
+              value={this.state.name}
+              onChangeText={(name) => this.setState({ name })}
               placeholder="Name"
               autoCapitalize="words"
               autoCorrect={false}
               returnKeyType="next"
-              onSubmitEditing={() => this._emailInput.focus()}
+              onSubmitEditing={async () => {
+                try {
+                  await AsyncStorage.setItem(NAME_FIELD_KEY, this.state.name)
+                } catch (error) {}
+                this._emailInput.focus()
+              }}
             />
           </View>
           <View style={styles.row}>
